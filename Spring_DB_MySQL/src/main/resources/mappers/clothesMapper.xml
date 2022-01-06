@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="spring.com.mapper.clothesMapper">
+
+	<select id="selectAllClothes" resultType="clothesVO">
+		SELECT
+		get_seq,name,category,brand,price,quantity,c_size from kolonmall
+	</select>
+<!-- 총row -->
+	<select id="totalRow" resultType="int">
+		Select count(*)from kolonmall where name like CONCAT('%',#{search},'%') 
+		or category like CONCAT('%',#{search},'%') or brand like CONCAT('%',#{search},'%')
+	</select>
+<!-- 검색+페이징-->
+	<select id="searchClothesList" resultType="clothesVO">
+		select * from kolonmall where name like CONCAT('%',#{search},'%') 
+		or category like CONCAT('%',#{search},'%') or brand like CONCAT('%',#{search},'%')
+		<if test="true">
+		order by name limit #{limit1},#{pagePerRow}
+		</if>
+	</select>
+
+
+</mapper>
