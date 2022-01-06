@@ -34,12 +34,17 @@ function checkingid(){
 		data:json,
 		success:function(data){
 			if(data.cnt==1){
+				$(".result .msg").text("아이디가 겹칩니다.")
+				$(".result .msg").attr("style", "color:#f00")
+				$("#submit").attr("disabled","disabled")
 				alert("아이디가 겹칩니다.");
 			}else{
+				$(".result .msg").text("사용 가능한 아이디 입니다.")
+				$(".result .msg").attr("style", "color:#00f")
 				alert("사용 가능한 아이디 입니다.");
-				alert(JSON.stringify(data));  //오브젝트값 출력해보는 코드
+				$("#submit").removeAttr("disabled")
 			}
-		
+			//alert(JSON.stringify(data));  //오브젝트값 출력해보는 코드
 		},
 		error:function(){
 			alert("에러")
@@ -48,6 +53,7 @@ function checkingid(){
 	})
 	
 }
+
 
 </script>
 
@@ -98,12 +104,13 @@ function checkingid(){
 			<form method="post" action="signin">
 			아이디  <input type="text" name="checkid" id="checkid">
 			<button type="button" class="checkid" onclick="checkingid();">중복확인</button><br>
-			
+			<p class="result">
+			<span class="msg"></span></p>
 			비밀번호  <input type="text" name="pw"><br>
 			비밀번호 확인 <input type="text" name="pw"><br>
 			이름 <input type="text" name="name"><br>
 			주소 <input type="text" name="address"><br>
-			<input type="submit" value="회원가입">		
+			<button type="submit" id="submit" disabled="disabled">회원가입</button>		
 			</form>
 			</div>
 		</div>
