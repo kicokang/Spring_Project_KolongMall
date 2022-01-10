@@ -43,6 +43,13 @@ public class IndexController {
         return "index";
     }
  
+    @RequestMapping(value = "/myinfo", method = RequestMethod.GET)
+    public String myinfo(Locale locale, Model model) throws Exception{
+ 
+        logger.info("myinfo");
+        
+        return "myinfo";
+    }
     
 }
 

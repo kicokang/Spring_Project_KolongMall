@@ -23,7 +23,7 @@
   crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-function checkingid(){
+function checkID(){
 	console.log("checkID:"+$('#checkid').val());
 	var json={"checkID":$('#checkid').val()};
 	console.log("checkID:"+checkid);
@@ -54,6 +54,19 @@ function checkingid(){
 	
 }
 
+function checkPW(){
+	var pw=$('#pw').val()
+	var pw2=$('#pw2').val()
+	console.log("pw:"+pw)
+	console.log("pw2:"+pw2)
+	if(pw==pw2){
+		alert("비밀번호가 확인 되었습니다.")
+		$("#submit").removeAttr("disabled")
+	}else{
+		alert("비밀번호가 일치하지 않습니다!")
+		$("#submit").attr("disabled","disabled")
+	}
+}
 
 </script>
 
@@ -103,14 +116,15 @@ function checkingid(){
 			
 			<form method="post" action="signin">
 			아이디  <input type="text" name="checkid" id="checkid">
-			<button type="button" class="checkid" onclick="checkingid();">중복확인</button><br>
+			<button type="button" class="checkid" onclick="checkID();">중복확인</button><br>
 			<p class="result">
 			<span class="msg"></span></p>
-			비밀번호  <input type="text" name="pw"><br>
-			비밀번호 확인 <input type="text" name="pw"><br>
+			비밀번호  <input type="password" name="pw" id="pw"><br>
+			비밀번호 확인 <input type="password" name="pw2" id="pw2"> 
+			<button type="button" onclick="checkPW();">비밀번호 확인</button><br>
 			이름 <input type="text" name="name"><br>
 			주소 <input type="text" name="address"><br>
-			<button type="submit" id="submit" disabled="disabled">회원가입</button>		
+			<button type="submit" id="submit" disabled="disabled" >회원가입</button>		
 			</form>
 			</div>
 		</div>

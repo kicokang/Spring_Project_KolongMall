@@ -55,7 +55,10 @@
 		</div>
 		<div id="contents">
 			<div id="singin">
-			회원가입이 완료되었습니다
+			<span>회원가입이 완료되었습니다</span>
+			</div>
+			<div>
+			<span><a href="${login_main}">로그인 화면으로 이동하기</a></span>
 			</div>
 		</div>
 		<div id="footer"></div>

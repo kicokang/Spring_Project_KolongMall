@@ -10,9 +10,13 @@
 <link href="${pageContext.request.contextPath}/css/index.css"
 	rel="stylesheet" type="text/css">
 
+<%--주소 이름 설정 --%>
 <c:url value='/login_main' var="login_main" />
 <c:url value='/signin_main' var="signin_main" />
-<c:url value='/search' var="search"/>
+<c:url value='/search' var="search" />
+<c:url value='/myinfo' var="myinfo"/>
+
+
 <script type="text/javascript">
 	function confirming() {
 		alert('<c:out value="로그아웃 되었습니다"/>')
@@ -25,6 +29,7 @@
 이렇게 하면 칸안에 값이 차있음--%>
 
 	<c:set var="session_id" value="${sessionScope.id}" scope="session" />
+	
 	<c:url value='/' var="index" />
 
 	<%-- 출력
@@ -65,7 +70,11 @@
 				<div id="signinbox">
 					<a href="${signin_main}">회원가입</a>
 				</div>
-				<div></div>
+				<c:if test="${not empty session_id }">
+					<div id="myinfo">
+						<a href="${myinfo}">내정보</a>
+					</div>
+				</c:if>
 			</div>
 
 		</div>

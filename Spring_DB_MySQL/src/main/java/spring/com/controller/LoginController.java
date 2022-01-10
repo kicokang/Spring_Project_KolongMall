@@ -87,16 +87,23 @@ public class LoginController {
     public String signin(
     		@RequestParam("checkid") String id,
     	    @RequestParam("pw") String pw,
+    	    @RequestParam("pw") String pw2,
     	    @RequestParam("name") String name,
     	    @RequestParam("address") String address,
     		Locale locale, Model model, HttpServletRequest request) throws Exception{
  
         logger.info("signin");
-        
         System.out.println("id:"+id);
+        int record=0;
+        if(pw==pw2) {
+        	System.out.println(pw+"과"+pw2+"일치");
+        	record=service.signup(id, pw, name, address);
+        	return "signin";
+        }else {
+        	System.out.println(pw+"과"+pw2+"불일치");
+        }
         
-        int record=service.signup(id, pw, name, address);
-
+        
         System.out.println("record:"+record);
         return "signin";
     }

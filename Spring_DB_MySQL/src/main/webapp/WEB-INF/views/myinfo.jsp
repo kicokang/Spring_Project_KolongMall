@@ -6,17 +6,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인 메인</title>
+<title>로그인완료</title>
 <link href="${pageContext.request.contextPath}/css/index.css"
 	rel="stylesheet" type="text/css">
 
 <c:url value='/login_main' var="login_main" />
 <c:url value='/signin_main' var="signin_main" />
 <c:url value='/search' var="search"/>
+<script type="text/javascript">
+	function confirming() {
+		alert('<c:out value="로그아웃 되었습니다"/>')
+	}
+</script>
+
 </head>
 <body>
-	<div id="wrap">
+	<%-- <input type="text" name="session_id" id="session_id" value="${sessionScope.id}"/>
+이렇게 하면 칸안에 값이 차있음	--%>
 
+	<c:set var="session_id" value="${sessionScope.id}" scope="session" />
+
+	<c:url value='/' var="index" />
+
+	<%-- 출력
+<c:out value="${session_id}"/> 
+--%>
+
+	<div id="wrap">
 		<div id="header">
 			<div id="search">
 				<div id="searchblock">
@@ -30,12 +46,12 @@
 			<div id="logo">
 				<a href="http://localhost:8888/Spring_DB_MySQL/"> <img alt="로고"
 					src="${pageContext.request.contextPath}/images/kolonmall.png"
-					width="150px" height="150px">
+					width="150px" height="150px" onclick="confirming()">
+
 				</a>
 			</div>
 			<div id="nav"></div>
-				<div id="login">
-			<c:out value="${session_id}"/>
+			<div id="login">
 				<c:if test="${empty session_id }">
 					<div id="loginbox">
 						<a href="${login_main}">로그인</a>
@@ -50,24 +66,14 @@
 				<div id="signinbox">
 					<a href="${signin_main}">회원가입</a>
 				</div>
-				<div></div>
+				<div id="myInfo">
+				<a href="${myinfo}">내정보</a>
+				</div>
 			</div>
 
 		</div>
-		<div id="contents">
-			<div id="loginbox">
-			<h1>옷은 KOLON</h1>
-				<form METHOD="post" ACTION="logined">
-				<div>아이디  <input type="text" name="id"><br>
-				</div>
-				<div>비밀번호 <input type="password" name="pw"><br>
-				</div>
-				<div>
-				<input type="submit" value="로그인">
-				</div>
-				</form>
-			</div>
-		</div>
+		<div id="slide"></div>
+		<div id="contents"></div>
 		<div id="footer"></div>
 
 	</div>
