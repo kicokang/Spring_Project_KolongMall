@@ -35,7 +35,7 @@ public class LoginController {
     /**
      * Simply selects the home view to render by returning its name.
      */
-    
+    //로그인 메인 페이지로
     @RequestMapping(value = "/login_main/**", method = RequestMethod.GET)
     public String goToLogin(
     		Locale locale, Model model, HttpServletRequest request) throws Exception{
@@ -45,7 +45,7 @@ public class LoginController {
         return "login_main";
     }
     
-    
+    //회원가입 메인 페이지로
     @RequestMapping(value = "/signin_main/**")
     public String goToSignin_main(
     		Locale locale, Model model, HttpServletRequest request) throws Exception{
@@ -54,7 +54,7 @@ public class LoginController {
  
         return "signin_main";
     }
-    
+    //로그인 검증
     @RequestMapping(value = "/logined/**")
     public String login_Check(
     	    @RequestParam("id") String id,
@@ -82,31 +82,6 @@ public class LoginController {
         return "logined";
     }
     
-    
-    @RequestMapping(value = "/signin/**", method = RequestMethod.POST)
-    public String signin(
-    		@RequestParam("checkid") String id,
-    	    @RequestParam("pw") String pw,
-    	    @RequestParam("pw") String pw2,
-    	    @RequestParam("name") String name,
-    	    @RequestParam("address") String address,
-    		Locale locale, Model model, HttpServletRequest request) throws Exception{
- 
-        logger.info("signin");
-        System.out.println("id:"+id);
-        int record=0;
-        if(pw==pw2) {
-        	System.out.println(pw+"과"+pw2+"일치");
-        	record=service.signup(id, pw, name, address);
-        	return "signin";
-        }else {
-        	System.out.println(pw+"과"+pw2+"불일치");
-        }
-        
-        
-        System.out.println("record:"+record);
-        return "signin";
-    }
-
+   
 }
 

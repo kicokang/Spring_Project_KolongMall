@@ -39,5 +39,10 @@ public class MemberServiceImpl implements MemberService {
     	
     	return dao.checkid(id);
     };
+    
+    @Override
+    public Boolean checkUser(String pw) throws Exception{
+    	return dao.checkUser(pw);
+    };
 
 }

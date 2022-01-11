@@ -31,6 +31,7 @@ public class IndexController {
     /**
      * Simply selects the home view to render by returning its name.
      */
+    //초기 메인화면으로 이동
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Locale locale, Model model) throws Exception{
  
@@ -42,7 +43,7 @@ public class IndexController {
  
         return "index";
     }
- 
+ //내정보 페이지로 이동
     @RequestMapping(value = "/myinfo", method = RequestMethod.GET)
     public String myinfo(Locale locale, Model model) throws Exception{
  

@@ -59,6 +59,20 @@ public class MemberDAOImpl implements MemberDAO {
     	
     	return check;
     };
+    
+    @Override
+    public boolean checkUser(String pw) throws Exception{
+    	
+    	boolean checkUser=false;
+    	String userID=sqlSession.selectOne(Namespace+".checkUserPW",pw);
+    	String userPW=sqlSession.selectOne(Namespace+".checkUserID",userID);
+
+    	if(userPW.equals(pw)==true) {
+    		checkUser=true;
+    	}
+    	
+		return checkUser;
+    };
 
 }
 

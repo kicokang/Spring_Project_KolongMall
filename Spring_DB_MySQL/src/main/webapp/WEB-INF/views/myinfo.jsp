@@ -12,7 +12,8 @@
 
 <c:url value='/login_main' var="login_main" />
 <c:url value='/signin_main' var="signin_main" />
-<c:url value='/search' var="search"/>
+<c:url value='/search' var="search" />
+
 <script type="text/javascript">
 	function confirming() {
 		alert('<c:out value="로그아웃 되었습니다"/>')
@@ -23,11 +24,10 @@
 <body>
 	<%-- <input type="text" name="session_id" id="session_id" value="${sessionScope.id}"/>
 이렇게 하면 칸안에 값이 차있음	--%>
-
+	<%--세션(로그인) 확인을 위한 코드~~ --%>
 	<c:set var="session_id" value="${sessionScope.id}" scope="session" />
-
 	<c:url value='/' var="index" />
-
+	<c:set var="checkconfrim" value="${confrimUser}" />
 	<%-- 출력
 <c:out value="${session_id}"/> 
 --%>
@@ -67,13 +67,30 @@
 					<a href="${signin_main}">회원가입</a>
 				</div>
 				<div id="myInfo">
-				<a href="${myinfo}">내정보</a>
+					<a href="${myinfo}">내정보</a>
 				</div>
 			</div>
 
 		</div>
-		<div id="slide"></div>
-		<div id="contents"></div>
+		<div id="contents">
+			<%--비밀번호 입력 받아서....참이면 화면이 전환되게... --%>
+			<c:if test="${empty checkconfrim}">
+				<div>
+					<h1>본인 인증을 위한 비밀번호를 입력해 주세요</h1>
+					<form method="post" action="checkuser">
+						비밀번호<input type="password" name="pw">
+						<button type="submit" id="submit">입력</button>
+					</form>
+				</div>
+			</c:if>
+
+			<c:if test="${checkconfrim eq true}">
+				<div>
+				개인정보
+				</div>
+			</c:if>
+
+		</div>
 		<div id="footer"></div>
 
 	</div>

@@ -15,4 +15,6 @@ public interface MemberDAO {
 	public int getm_num() throws Exception;
 
 	public int checkid(String id) throws Exception;
+
+	public boolean checkUser(String pw) throws Exception;
 }

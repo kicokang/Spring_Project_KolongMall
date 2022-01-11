@@ -1,5 +1,6 @@
 package spring.com.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonParser;
 
+import spring.com.dto.ClothesVO;
 import spring.com.dto.MemberVO;
 import spring.com.service.MemberService;
 
@@ -35,7 +37,7 @@ public class SigninController {
     @Inject
     private MemberService service;
     
-
+    //아이디 중복 확인 메서드
     @RequestMapping(value= "/idcheck.do", method = {RequestMethod.POST})
     public @ResponseBody Map<Object, Object> checkid(String checkID)
     		 throws Exception{
@@ -49,6 +51,48 @@ public class SigninController {
     	
     	return map;
     }
+    
+    //비밀번호 확인
+    @RequestMapping(value = "/signin/**", method = RequestMethod.POST)
+    public String signin(
+    		@RequestParam("checkid") String id,
+    	    @RequestParam("pw") String pw,
+    	    @RequestParam("pw") String pw2,
+    	    @RequestParam("name") String name,
+    	    @RequestParam("address") String address,
+    		Locale locale, Model model, HttpServletRequest request) throws Exception{
+ 
+        logger.info("signin");
+        System.out.println("id:"+id);
+        int record=0;
+        if(pw==pw2) {
+        	System.out.println(pw+"과"+pw2+"일치");
+        	record=service.signup(id, pw, name, address);
+        	return "signin";
+        }else {
+        	System.out.println(pw+"과"+pw2+"불일치");
+        }
+        
+        
+        System.out.println("record:"+record);
+        return "signin";
+    }
 
+    //정보 수정 전 본인확인, 비밀번호 입력받아 확인...파라미터 받는게 input 갯수와 다르면 못받음..
+    @RequestMapping(value = "/checkuser/**")
+    public String checkUser(
+    		@RequestParam("pw") String pw,
+    		Locale locale, Model model, HttpServletRequest request) throws Exception{
+ 
+        logger.info("checkUser");
+        System.out.println("pw:"+pw);
+        
+        Boolean confrimUser = service.checkUser(pw);
+        System.out.println("confrimUser:"+confrimUser);
+
+        model.addAttribute("confrimUser", confrimUser);
+     
+        return "myinfo";
+    }
 }
 

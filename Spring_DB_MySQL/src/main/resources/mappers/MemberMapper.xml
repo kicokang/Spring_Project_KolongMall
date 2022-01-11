@@ -25,4 +25,12 @@ SELECT m_num from members order by m_num desc limit 1;
 SELECT count(id) from members where id=#{id}
 </select>
 
+<select id="checkUserPW" resultType="String">
+SELECT id from members where pw=#{pw}
+</select>
+<select id="checkUserID" resultType="String">
+SELECT pw from members where id=#{userID}
+</select>
+
+
 </mapper>
