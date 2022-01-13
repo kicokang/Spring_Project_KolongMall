@@ -24,7 +24,15 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public boolean loginCheck(String id, String pw) throws Exception {
     	
-    	return dao.loginCheck(id,pw);
+    	String userPW = dao.loginCheck(id,pw);
+    	if(userPW==null) {
+    		return false;
+    	}
+    	if(userPW.equals(pw)==true) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     };
     
     @Override
@@ -40,9 +48,30 @@ public class MemberServiceImpl implements MemberService {
     	return dao.checkid(id);
     };
     
+    
     @Override
     public Boolean checkUser(String pw) throws Exception{
-    	return dao.checkUser(pw);
+    	
+    	String m_num=dao.getUserM_num(pw);
+    	String userPW=dao.checkUserPW(m_num);
+    	
+    	if(userPW.equals(pw)==true) {
+    		return true;
+    	}
+    	
+    	return false;
     };
+    //아 getM_num을 그냥 만들어서 서비스가 아니라 controller에서 했어야 했나? dao 있는게 맞겠지?
+    @Override
+	public String getM_number(String pw) throws Exception{
+    	String m_num=dao.getUserM_num(pw);
+    	return m_num;
+    };
+    
+    @Override
+	public List<MemberVO> loadMemberInfo(String getM_num) throws Exception{
+    	return dao.loadMemberInfo(getM_num);
+    };
+
 
 }

@@ -31,68 +31,79 @@ import spring.com.service.MemberService;
 
 @Controller
 public class SigninController {
-    
-    private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
-    
-    @Inject
-    private MemberService service;
-    
-    //아이디 중복 확인 메서드
-    @RequestMapping(value= "/idcheck.do", method = {RequestMethod.POST})
-    public @ResponseBody Map<Object, Object> checkid(String checkID)
-    		 throws Exception{
-    	
-    	logger.info("checkid");
-    	int cnt=0;
-    	Map<Object,Object> map = new HashMap<>();
-    	cnt = service.checkid(checkID);
-    	System.out.println(checkID);
-    	map.put("cnt",cnt);
-    	
-    	return map;
-    }
-    
-    //비밀번호 확인
-    @RequestMapping(value = "/signin/**", method = RequestMethod.POST)
-    public String signin(
-    		@RequestParam("checkid") String id,
-    	    @RequestParam("pw") String pw,
-    	    @RequestParam("pw") String pw2,
-    	    @RequestParam("name") String name,
-    	    @RequestParam("address") String address,
-    		Locale locale, Model model, HttpServletRequest request) throws Exception{
- 
-        logger.info("signin");
-        System.out.println("id:"+id);
-        int record=0;
-        if(pw==pw2) {
-        	System.out.println(pw+"과"+pw2+"일치");
-        	record=service.signup(id, pw, name, address);
-        	return "signin";
-        }else {
-        	System.out.println(pw+"과"+pw2+"불일치");
-        }
-        
-        
-        System.out.println("record:"+record);
-        return "signin";
-    }
 
-    //정보 수정 전 본인확인, 비밀번호 입력받아 확인...파라미터 받는게 input 갯수와 다르면 못받음..
-    @RequestMapping(value = "/checkuser/**")
-    public String checkUser(
-    		@RequestParam("pw") String pw,
-    		Locale locale, Model model, HttpServletRequest request) throws Exception{
- 
-        logger.info("checkUser");
-        System.out.println("pw:"+pw);
-        
-        Boolean confrimUser = service.checkUser(pw);
-        System.out.println("confrimUser:"+confrimUser);
+	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
-        model.addAttribute("confrimUser", confrimUser);
-     
-        return "myinfo";
-    }
+	@Inject
+	private MemberService service;
+
+	// 아이디 중복 확인 메서드
+	@RequestMapping(value = "/idcheck.do", method = { RequestMethod.POST })
+	public @ResponseBody Map<Object, Object> checkid(String checkID) throws Exception {
+
+		logger.info("checkid");
+		int cnt = 0;
+		Map<Object, Object> map = new HashMap<>();
+		cnt = service.checkid(checkID);
+		System.out.println(checkID);
+		map.put("cnt", cnt);
+
+		return map;
+	}
+
+	// 비밀번호 확인
+	@RequestMapping(value = "/signin/**", method = RequestMethod.POST)
+	public String signin(@RequestParam("checkid") String id, @RequestParam("pw") String pw,
+			@RequestParam("pw") String pw2, @RequestParam("name") String name, @RequestParam("address") String address,
+			Locale locale, Model model, HttpServletRequest request) throws Exception {
+
+		logger.info("signin");
+		System.out.println("id:" + id);
+		int record = 0;
+		if (pw == pw2) {
+			System.out.println(pw + "과" + pw2 + "일치");
+			record = service.signup(id, pw, name, address);
+			return "signin";
+		} else {
+			System.out.println(pw + "과" + pw2 + "불일치");
+		}
+
+		System.out.println("record:" + record);
+		return "signin";
+	}
+
+	// 정보 수정 전 본인확인, 비밀번호 입력받아 확인...파라미터 받는게 input 갯수와 다르면 못받음..
+	@RequestMapping(value = "/checkuser/**")
+	public String checkUser(@RequestParam("pw") String pw, Locale locale, Model model, HttpServletRequest request)
+			throws Exception {
+
+		logger.info("checkUser");
+		System.out.println("pw:" + pw);
+
+		Boolean confrimUser = service.checkUser(pw);
+		System.out.println("confrimUser:" + confrimUser);
+
+		model.addAttribute("confrimUser", confrimUser);
+
+		return "myinfo";
+	}
+
+	// 개인정보 가져오기
+	@RequestMapping(value = "/loadUserInfo", method = { RequestMethod.POST })
+	public @ResponseBody Map<Object, Object> loadUserInfo(String pw ,  Model model)throws Exception {
+
+		logger.info("loadUserInfo");
+		//vo에 서비스에서 가져온 객체정보를 저장해야지
+		String getM_num=service.getM_number(pw);
+		List<MemberVO>memberInfo= service.loadMemberInfo(getM_num);
+
+		model.addAttribute("memberInfo", memberInfo);
+		
+		Map<Object, Object> map = new HashMap<>();
+		List<MemberVO> cnt = service.loadMemberInfo(getM_num);
+
+		map.put("cnt", cnt);
+
+		return map;
+	}
 }
-

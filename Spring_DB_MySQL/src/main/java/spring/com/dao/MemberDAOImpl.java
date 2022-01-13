@@ -24,19 +24,9 @@ public class MemberDAOImpl implements MemberDAO {
     }
     
     @Override
-	public boolean loginCheck(String id, String pw) throws Exception{
+	public String loginCheck(String id, String pw) throws Exception{
     	String db_pw=sqlSession.selectOne(Namespace+".loginCheck",id);
-    	System.out.println("db_id:"+db_pw);
-    	if(db_pw==null) {
-    		return false;
-    	}
-    	
-    	if(db_pw.equals(pw)==true) {
-    		return true;
-    	} else {
-    		return false;
-    	}
-    	
+    	return db_pw;
     };
     
     @Override
@@ -56,24 +46,27 @@ public class MemberDAOImpl implements MemberDAO {
     @Override
 	public int checkid(String id) throws Exception{
     	int check=sqlSession.selectOne(Namespace+".checkid",id);
-    	
     	return check;
     };
     
     @Override
-    public boolean checkUser(String pw) throws Exception{
-    	
-    	boolean checkUser=false;
-    	String userID=sqlSession.selectOne(Namespace+".checkUserPW",pw);
-    	String userPW=sqlSession.selectOne(Namespace+".checkUserID",userID);
-
-    	if(userPW.equals(pw)==true) {
-    		checkUser=true;
-    	}
-    	
-		return checkUser;
+    public String getUserM_num(String pw) throws Exception{
+    	String m_num=sqlSession.selectOne(Namespace+".checkUserM_num",pw);
+		return m_num;
     };
 
+    @Override
+    public String checkUserPW(String m_num) throws Exception{
+    	String userPW=sqlSession.selectOne(Namespace+".checkUserPW",m_num);
+		return userPW;
+    };
+    
+    @Override
+	public List<MemberVO> loadMemberInfo(String getM_num) throws Exception{
+    	
+    	return sqlSession.selectList(Namespace+".loadMemberInfo",getM_num);
+    };
+    
 }
 
 	
