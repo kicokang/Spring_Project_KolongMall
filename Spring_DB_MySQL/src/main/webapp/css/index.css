@@ -79,6 +79,13 @@
 	margin-left: 360px;
 	
 }
+#myinfo{
+	float: right;
+	position:absolute;
+	margin-top: 10px;
+	margin-left:220px;
+}
+
 
 
 #slide{

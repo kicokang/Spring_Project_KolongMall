@@ -151,7 +151,6 @@ $(document).ready(function(){
 								<td>${clothes.price}</td>
 								<td>${clothes.quantity}</td>
 								<td>${clothes.c_size}</td>
-
 							</tr>
 						</c:forEach>
 					</tbody>

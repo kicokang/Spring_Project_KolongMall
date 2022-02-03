@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:requestEncoding value="utf-8"/>
 
 <!DOCTYPE html>
 <html>
@@ -14,10 +16,42 @@
 <c:url value='/signin_main' var="signin_main" />
 <c:url value='/search' var="search" />
 
+<%--제이쿼리 코드사용 --%>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+  
 <script type="text/javascript">
 	function confirming() {
 		alert('<c:out value="로그아웃 되었습니다"/>')
 	}
+	
+	function loadUserInfo(){
+		alert("loadUserInfo실행")
+		console.log("authenticatingPW:"+$('#authenticatingPW').val());
+		var json={"authenticatingPW":$('#authenticatingPW').val()};
+		$.ajax({
+			url:"loadUserInfo",
+			type:"POST",
+			async:true,
+			data:json,
+			success:function(data){
+				if(data.cnt==1){
+					alert("ajax 값 조회합니다");
+				}else{
+					alert("ajax 값 불러오기 실패");
+				}
+				//alert(JSON.stringify(data));  //오브젝트값 출력해보는 코드
+			},
+			error:function(){
+				alert("에러")
+			}
+			
+		})
+		
+	}
+	
 </script>
 
 </head>
@@ -66,7 +100,7 @@
 				<div id="signinbox">
 					<a href="${signin_main}">회원가입</a>
 				</div>
-				<div id="myInfo">
+				<div id="myinfo">
 					<a href="${myinfo}">내정보</a>
 				</div>
 			</div>
@@ -78,15 +112,35 @@
 				<div>
 					<h1>본인 인증을 위한 비밀번호를 입력해 주세요</h1>
 					<form method="post" action="checkuser">
-						비밀번호<input type="password" name="pw">
-						<button type="submit" id="submit">입력</button>
+						비밀번호<input type="password" name="pw" id="authenticatingPW">
+						<input type="hidden" name="session_id" value="${session_id}" > 
+						<button type="submit" id="submit" onclick="loadUserInfo();">입력</button>
 					</form>
 				</div>
 			</c:if>
 
 			<c:if test="${checkconfrim eq true}">
+				<div id="infobox">개인정보</div>
 				<div>
-				개인정보
+					<c:forEach items="${memberInfo}" var="info">
+						<tr>
+							<td>${info.id}</td>
+							<td>${info.pw}</td>
+							<td>${info.name}</td>
+							<td>${info.address}</td>
+						</tr>
+					</c:forEach>
+				</div>
+			</c:if>
+			
+			<c:if test="${checkconfrim eq false}">
+				<div>
+					<h1>비밀 번호가 틀렸습니다. 재입력해 주세요</h1>
+					<form method="post" action="checkuser">
+						비밀번호<input type="password" name="pw" id="authenticatingPW">
+						<input type="hidden" name="session_id" value="${session_id}" > 
+						<button type="submit" id="submit" onclick="loadUserInfo();">입력</button>
+					</form>
 				</div>
 			</c:if>
 

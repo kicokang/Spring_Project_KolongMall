@@ -8,7 +8,7 @@ public interface MemberDAO {
     
     public List<MemberVO> selectAllMember() throws Exception;
 
-	public boolean loginCheck(String id, String pw) throws Exception;
+	public String loginCheck(String id, String pw) throws Exception;
 	
 	public int signin(int m_num,String id,String pw,String name,String address) throws Exception;
 	
@@ -16,5 +16,10 @@ public interface MemberDAO {
 
 	public int checkid(String id) throws Exception;
 
-	public boolean checkUser(String pw) throws Exception;
+	public String getUserM_num(String id) throws Exception;
+	
+	public String checkUserPW(String m_num) throws Exception;
+
+	public List<MemberVO> loadMemberInfo(String getM_num) throws Exception;
+
 }

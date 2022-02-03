@@ -14,7 +14,11 @@ public interface MemberService {
 
 	public int checkid(String id) throws Exception;
 
-	public Boolean checkUser(String pw) throws Exception;
+	public Boolean checkUser(String id, String pw) throws Exception;
+
+	public String getM_number(String pw) throws Exception;
+
+	public List<MemberVO> loadMemberInfo(String getM_num) throws Exception;
 }
 
 
