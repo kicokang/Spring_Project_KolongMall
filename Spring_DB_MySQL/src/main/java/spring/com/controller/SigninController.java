@@ -91,11 +91,12 @@ public class SigninController {
 
 	// 개인정보 가져오기
 	@RequestMapping(value = "/loadUserInfo", method = { RequestMethod.POST })
-	public @ResponseBody Map<Object, Object> loadUserInfo(String pw ,  Model model)throws Exception {
+	public @ResponseBody Map<Object, Object> loadUserInfo(String id,String pw ,  Model model)throws Exception {
 
 		logger.info("loadUserInfo");
 		//vo에 서비스에서 가져온 객체정보를 저장해야지
-		String getM_num=service.getM_number(pw);
+		System.out.println("id="+id+"pw="+pw);
+		String getM_num=service.getM_number(id);
 		List<MemberVO>memberInfo= service.loadMemberInfo(getM_num);
 
 		model.addAttribute("memberInfo", memberInfo);

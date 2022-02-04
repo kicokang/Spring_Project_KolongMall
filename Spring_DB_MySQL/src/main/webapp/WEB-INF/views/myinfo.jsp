@@ -29,18 +29,29 @@
 	
 	function loadUserInfo(){
 		alert("loadUserInfo실행")
-		console.log("authenticatingPW:"+$('#authenticatingPW').val());
-		var json={"authenticatingPW":$('#authenticatingPW').val()};
+		console.log("id:"+$('#session_id').val());
+		console.log("pw:"+$('#authenticatingPW').val());
+		var json={"id":$('#session_id').val(),
+				"pw":$('#authenticatingPW').val()
+				};
 		$.ajax({
 			url:"loadUserInfo",
 			type:"POST",
 			async:true,
 			data:json,
 			success:function(data){
-				if(data.cnt==1){
-					alert("ajax 값 조회합니다");
+				if(data.cnt != null){
+					alert(JSON.stringify(data));  //오브젝트값 출력해보는 코드
+					//var infoList=data.infoList;
+					//var name =infoList.name;
+					var userIdInfo=(data.cnt[0].id);
+					var userPwInfo=(data.cnt[0].pw);
+					var userNameInfo=(data.cnt[0].name);
+					var userAddressInfo=(data.cnt[0].address);
+					alert(userIdInfo);
 				}else{
 					alert("ajax 값 불러오기 실패");
+					alert(JSON.stringify(data));  //오브젝트값 출력해보는 코드
 				}
 				//alert(JSON.stringify(data));  //오브젝트값 출력해보는 코드
 			},
@@ -56,8 +67,8 @@
 
 </head>
 <body>
-	<%-- <input type="text" name="session_id" id="session_id" value="${sessionScope.id}"/>
-이렇게 하면 칸안에 값이 차있음	--%>
+	<input type="hidden" name="session_id" id="session_id" value="${sessionScope.id}"/>
+<%-- 이렇게 하면 칸안에 값이 차있음	--%>
 	<%--세션(로그인) 확인을 위한 코드~~ --%>
 	<c:set var="session_id" value="${sessionScope.id}" scope="session" />
 	<c:url value='/' var="index" />
@@ -122,14 +133,18 @@
 			<c:if test="${checkconfrim eq true}">
 				<div id="infobox">개인정보</div>
 				<div>
-					<c:forEach items="${memberInfo}" var="info">
+					<%-- <c:forEach items="${memberInfo}" var="info">
 						<tr>
-							<td>${info.id}</td>
+							<td>${userIdInfo}</td>
 							<td>${info.pw}</td>
 							<td>${info.name}</td>
 							<td>${info.address}</td>
 						</tr>
-					</c:forEach>
+					 </c:forEach> --%>
+					 <span></span>
+					 <span></span>
+					 <span></span>
+					 <span></span>
 				</div>
 			</c:if>
 			

@@ -8,6 +8,9 @@ public class MemberVO {
     private String name;
     private String address;
     
+    public MemberVO() {
+    	
+    }
 	public MemberVO(int m_num,String id, String pw, String name, String address) {
 		this.m_num=m_num;
 		this.id=id;

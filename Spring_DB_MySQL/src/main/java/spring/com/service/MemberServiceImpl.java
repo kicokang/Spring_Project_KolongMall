@@ -67,8 +67,8 @@ public class MemberServiceImpl implements MemberService {
     };
     //아 getM_num을 그냥 만들어서 서비스가 아니라 controller에서 했어야 했나? dao 있는게 맞겠지?
     @Override
-	public String getM_number(String pw) throws Exception{
-    	String m_num=dao.getUserM_num(pw);
+	public String getM_number(String id) throws Exception{
+    	String m_num=dao.getUserM_num(id);
     	return m_num;
     };
     
