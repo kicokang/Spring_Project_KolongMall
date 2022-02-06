@@ -80,32 +80,42 @@ public class SigninController {
 		logger.info("checkUser");
 		System.out.println("id:" + id);
 		System.out.println("pw:" + pw);
-
+		//회원정보 확인 코드
 		Boolean confrimUser = service.checkUser(id,pw);
 		System.out.println("confrimUser:" + confrimUser);
 
 		model.addAttribute("confrimUser", confrimUser);
+		
+		//개인정보 불러오기 코드
+		String getM_num=service.getM_number(id);
+		System.out.println("loadUserInfoDo에서 getM_num="+getM_num);
+		List<MemberVO>memberInfo= service.loadMemberInfo(getM_num);
+
+		model.addAttribute("memberInfo", memberInfo);
 
 		return "myinfo";
 	}
 
 	// 개인정보 가져오기
-	@RequestMapping(value = "/loadUserInfo", method = { RequestMethod.POST })
-	public @ResponseBody Map<Object, Object> loadUserInfo(String id,String pw ,  Model model)throws Exception {
-
-		logger.info("loadUserInfo");
+	@RequestMapping(value = "/loadUserInfo.do", method = { RequestMethod.POST })
+	public @ResponseBody String loadUserInfoDo(String id,String pw ,  Model model)throws Exception {
+//Map<Object, Object>  string 대신넣어져 있음
+		logger.info("loadUserInfoDo");
 		//vo에 서비스에서 가져온 객체정보를 저장해야지
 		System.out.println("id="+id+"pw="+pw);
-		String getM_num=service.getM_number(id);
-		List<MemberVO>memberInfo= service.loadMemberInfo(getM_num);
+		//jap식 코드
+		//String getM_num=service.getM_number(id);
+		//System.out.println("loadUserInfoDo에서 getM_num="+getM_num);
+		//List<MemberVO>memberInfo= service.loadMemberInfo(getM_num);
 
-		model.addAttribute("memberInfo", memberInfo);
+		//model.addAttribute("memberInfo", memberInfo);
 		
-		Map<Object, Object> map = new HashMap<>();
-		List<MemberVO> cnt = service.loadMemberInfo(getM_num);
+		//ajax 코드
+		//Map<Object, Object> map = new HashMap<>();
+		//List<MemberVO> cnt = service.loadMemberInfo(getM_num);
 
-		map.put("cnt", cnt);
+		//map.put("cnt", cnt);
 
-		return map;
+		return "myinfo";
 	}
 }

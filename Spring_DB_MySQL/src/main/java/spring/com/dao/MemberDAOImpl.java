@@ -74,8 +74,8 @@ public class MemberDAOImpl implements MemberDAO {
     
     @Override
 	public List<MemberVO> loadMemberInfo(String getM_num) throws Exception{
-    	
-    	return sqlSession.selectList(Namespace+".loadMemberInfo",getM_num);
+    	int newM_num=Integer.parseInt(getM_num);
+    	return sqlSession.selectList(Namespace+".loadMemberInfo",newM_num);
     };
     
 }

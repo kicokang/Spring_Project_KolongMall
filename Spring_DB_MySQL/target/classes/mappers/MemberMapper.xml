@@ -33,7 +33,7 @@ SELECT pw from members where m_num=#{m_num}
 </select>
 
 <select id="loadMemberInfo" resultType="MemberVO">
-        SELECT m_num,id,pw,address from members where m_num=#{getM_num}
+        SELECT m_num,id,pw,name,address from members where m_num=#{newM_num}
 </select>
 
 </mapper>
