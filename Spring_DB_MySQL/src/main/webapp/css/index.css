@@ -1,41 +1,45 @@
 @charset "UTF-8";
 
+button {
+	background-color: red;
+}
+
 #wrap {
 	width: 1600px;
 	height: 2400px;
 	background-color: grey;
-	margin:0 auto;
+	margin: 0 auto;
 	/*중앙에 있게하는 코드*/
 }
 
 #header {
-    z-index: 2;
-    position: relative;
+	z-index: 2;
+	position: relative;
 	width: 1600px;
 	height: 300px;
 	background-color: appworkspace;
 	box-sizing: border-box;
 }
 
-#header>#logo{
-	float:left;
-    width:250px;
-    height:250px;
-    background-color: coral;
+#header>#logo {
+	float: left;
+	width: 250px;
+	height: 250px;
+	background-color: coral;
 	display: inline-block;
 	padding-left: 20px;
 	box-sizing: border-box;
+}
 
+#header>#nav {
+	margin-top: 50px;
+	width: 1600px;
+	height: 100px;
+	background-color: cornflowerblue;
+	position: absolute;
 }
-#header>#nav{
-    margin-top : 50px;
-    width:1600px;
-    height:100px;
-    background-color: cornflowerblue;
-    position: absolute;
-}
-#header>#search{
-	
+
+#header>#search {
 	background-color: fuchsia;
 	width: 800px;
 	height: 100px;
@@ -43,13 +47,14 @@
 	display: inline-block;
 }
 
-#searchblock{
-	position:relative;
+#searchblock {
+	position: relative;
 	margin-top: 30px;
 	margin-left: 400px;
 	font-size: 20px;
 }
-#header>#login{
+
+#header>#login {
 	float: right;
 	background-color: activecaption;
 	width: 550px;
@@ -58,109 +63,142 @@
 	display: inline-block;
 }
 
-#loginbox{
+#loginbox {
 	float: right;
-	position:absolute;
+	position: absolute;
 	margin-top: 10px;
 	margin-left: 280px;
-	
 }
-#logoutbox{
-	float: right;
-	position:absolute;
-	margin-top: 10px;
-	margin-left: 280px;
 
-}
-#signinbox{
+#logoutbox {
 	float: right;
-	position:absolute;
+	position: absolute;
+	margin-top: 10px;
+	margin-left: 280px;
+}
+
+#signinbox {
+	float: right;
+	position: absolute;
 	margin-top: 10px;
 	margin-left: 360px;
-	
 }
-#myinfo{
+
+#myinfo {
 	float: right;
-	position:absolute;
+	position: absolute;
 	margin-top: 10px;
-	margin-left:220px;
+	margin-left: 220px;
 }
 
-
-
-#slide{
-    width:1600px;
-    height:300px;
-    background-color: burlywood;
+#slide {
+	width: 1600px;
+	height: 300px;
+	background-color: burlywood;
 }
-#tab{
-	width:100%;
-	height:300px;
+
+#tab {
+	width: 100%;
+	height: 300px;
 	display: inline-block;
 	overflow: hidden;
 }
 
-
-
-#contents{
-    width:1600px;
-    height:1000px;
-    background-color:green;
-}
-#contents>#cont1{
-    float:left;
-    width:480px;
-    height:200px;
-    background-color: darkblue;
-}
-#contents>#cont2{
-    float:left;
-    width:360px;
-    height:200px;
-    background-color: darkgoldenrod;
-}
-#contents>#cont3{
-    float:left;
-    width:360px;
-    height:200px;
-    background-color: darkgreen;
+#contents {
+	width: 1600px;
+	height: 1000px;
+	background-color: green;
+	text-align : center;
+	font-size: 26px;
 }
 
-#page-list{
+#contents>#cont1 {
+	float: left;
+	width: 480px;
+	height: 200px;
+	background-color: darkblue;
+}
+
+#contents>#cont2 {
+	float: left;
+	width: 360px;
+	height: 200px;
+	background-color: darkgoldenrod;
+}
+
+#contents>#cont3 {
+	float: left;
+	width: 360px;
+	height: 200px;
+	background-color: darkgreen;
+}
+
+#page-list {
 	background-color: blue;
 	text-align: center;
 }
-#page-number{
+
+#page-number {
 	display: inline-block;
 	font-size: 20px;
 	background-color: graytext;
 	padding: 2px;
 }
 
-
-#footer{
-    width:1600px;
-    height:100px;
-    background-color:cadetblue;
+#infobox {
+	background-color: fuchsia;
 }
 
-#footer>#logo{
-    float:left;
-    width:200px;
-    height:200px;
-    background-color: firebrick;
+#table {
+	width:1400px;
+	height:600px;
+	padding: 50px;
+	margin-top:50px;
+	background-color: black;
+	display: inline-block;
 }
 
-#footer>#copyright{
-    float:left;
-    width:800px;
-    height:100px;
-    background-color: forestgreen;
+.infocom {
+	width: 300px;
+	height: 100px;
+	background-color: yellow;
+	font-size: 30px;
+	line-height: 100px;
 }
 
-#footer>#sns{
-    float:left;
-    width:200px;
-    height:100px;
-    background-color: fuchsia;
+.infocon {
+	width: 450px;
+	height: 100px;
+	background-color: silver;
+	font-size: 30px;
+	line-height: 100px;
+}
+
+
+
+#footer {
+	width: 1600px;
+	height: 100px;
+	background-color: cadetblue;
+}
+
+#footer>#logo {
+	float: left;
+	width: 200px;
+	height: 200px;
+	background-color: firebrick;
+}
+
+#footer>#copyright {
+	float: left;
+	width: 800px;
+	height: 100px;
+	background-color: forestgreen;
+}
+
+#footer>#sns {
+	float: left;
+	width: 200px;
+	height: 100px;
+	background-color: fuchsia;
 }

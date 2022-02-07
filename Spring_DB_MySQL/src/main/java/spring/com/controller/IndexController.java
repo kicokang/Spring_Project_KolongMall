@@ -44,7 +44,7 @@ public class IndexController {
         return "index";
     }
  //내정보 페이지로 이동
-    @RequestMapping(value = "/myinfo", method = RequestMethod.GET)
+    @RequestMapping(value = "/myinfo/**", method = RequestMethod.GET)
     public String myinfo(Locale locale, Model model) throws Exception{
  
         logger.info("myinfo");

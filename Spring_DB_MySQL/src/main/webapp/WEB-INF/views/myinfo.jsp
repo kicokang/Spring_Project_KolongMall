@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인완료</title>
-<link href="${pageContext.request.contextPath}/css/index.css"
+<link href="${pageContext.request.contextPath}/css/index.css?after"
 	rel="stylesheet" type="text/css">
 
 <c:url value='/login_main' var="login_main" />
@@ -48,10 +48,10 @@
 					var userPwInfo = (data.cnt[0].pw);
 					var userNameInfo = (data.cnt[0].name);
 					var userAddressInfo = (data.cnt[0].address);
-					alert(userIdInfo);
+					//alert(userIdInfo);
 				} else {
 					alert("ajax 값 불러오기 실패");
-					alert(JSON.stringify(data)); //오브젝트값 출력해보는 코드
+					//alert(JSON.stringify(data)); //오브젝트값 출력해보는 코드
 				}
 				//alert(JSON.stringify(data));  //오브젝트값 출력해보는 코드
 			},
@@ -61,6 +61,21 @@
 
 		})
 
+	}
+
+	function signout() {
+		var conf = confirm('정말 회원탈퇴 하시겠습니까?');
+		if(conf){
+			var prom=prompt('아이디를 다시 입력해 주세요.')
+			if(prom===$('#session_id').val()){
+				alert("탈퇴되었습니다!")
+				$('#withdrawal').get(0).click();
+				}
+			else{
+				alert("아이디가 다릅니다. \n취소되었습니다.")
+			}
+			}
+	
 	}
 </script>
 
@@ -73,6 +88,7 @@
 	<c:set var="session_id" value="${sessionScope.id}" scope="session" />
 	<c:url value='/' var="index" />
 	<c:set var="checkconfrim" value="${confrimUser}" />
+	<c:url value="myinfo" var="myinfo"/>
 	<%-- 출력
 <c:out value="${session_id}"/> 
 --%>
@@ -108,9 +124,12 @@
 						<a href="${index}">로그아웃</a>
 					</div>
 				</c:if>
-				<div id="signinbox">
-					<a href="${signin_main}">회원가입</a>
-				</div>
+
+				<c:if test="${empty session_id }">
+					<div id="signinbox">
+						<a href="${signin_main}">회원가입</a>
+					</div>
+				</c:if>
 				<div id="myinfo">
 					<a href="${myinfo}">내정보</a>
 				</div>
@@ -140,15 +159,37 @@
 					<tbody>
 						<c:forEach items="${memberInfo}" var="info">
 							<tr>
-								<th>아이디</th><td>${info.id}</td>
-								<th>비밀번호</th><td>${info.pw}</td>
-								<th>이름</th><td>${info.name}</td>
-								<th>주소</th><td>${info.address}</td>
+								<th><div class="infocom">아이디</div></th>
+								<td><div class="infocon">${info.id}</div></td>
+								<td>
+									<div class="infocon">
+										<form>
+											<input type="text" value="${info.id}">
+											<button type="submit" id="">수정</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th><div class="infocom">비밀번호</div></th>
+								<td><div class="infocon">${info.pw}</div></td>
+							</tr>
+							<tr>
+								<th><div class="infocom">이름</div></th>
+								<td><div class="infocon">${info.name}</div></td>
+							</tr>
+							<tr>
+								<th><div class="infocom">주소</div></th>
+								<td><div class="infocon">${info.address}</div></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 
+				<div id="signout">
+					<button onclick="signout();">회원탈퇴</button>
+					<a href="${index}" type="hidden" id="withdrawal"></a>
+				</div>
 			</c:if>
 
 			<c:if test="${checkconfrim eq false}">
@@ -163,7 +204,9 @@
 			</c:if>
 
 		</div>
-		<div id="footer"></div>
+		<div id="footer">
+			<div>ㅎㅇ</div>
+		</div>
 
 	</div>
 

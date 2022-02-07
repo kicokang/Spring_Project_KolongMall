@@ -14,7 +14,7 @@
 <c:url value='/login_main' var="login_main" />
 <c:url value='/signin_main' var="signin_main" />
 <c:url value='/search' var="search" />
-<c:url value='/myinfo' var="myinfo"/>
+<c:url value='/myinfo' var="myinfo" />
 
 
 <script type="text/javascript">
@@ -29,7 +29,7 @@
 이렇게 하면 칸안에 값이 차있음--%>
 
 	<c:set var="session_id" value="${sessionScope.id}" scope="session" />
-	
+
 	<c:url value='/' var="index" />
 
 	<%-- 출력
@@ -67,9 +67,18 @@
 						<a href="${index}">로그아웃</a>
 					</div>
 				</c:if>
-				<div id="signinbox">
-					<a href="${signin_main}">회원가입</a>
-				</div>
+				<c:if test="${empty session_id }">
+					<div id="signinbox">
+						<a href="${signin_main}">회원가입</a>
+					</div>
+				</c:if>
+				<c:if test="${not empty session_id }">
+					<%--
+					<div id="signinbox">
+						<a href="${signin_main}">회원탈퇴</a>
+					</div>
+					 --%>
+				</c:if>
 				<c:if test="${not empty session_id }">
 					<div id="myinfo">
 						<a href="${myinfo}">내정보</a>
