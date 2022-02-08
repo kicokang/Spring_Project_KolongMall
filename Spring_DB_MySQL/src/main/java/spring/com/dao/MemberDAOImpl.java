@@ -78,6 +78,11 @@ public class MemberDAOImpl implements MemberDAO {
     	return sqlSession.selectList(Namespace+".loadMemberInfo",newM_num);
     };
     
+    @Override
+	public void withdrawal(String id) throws Exception{
+    	sqlSession.delete(Namespace+".withdrawal",id);
+    };
+
 }
 
 	

@@ -77,5 +77,9 @@ public class MemberServiceImpl implements MemberService {
     	return dao.loadMemberInfo(getM_num);
     };
 
+    @Override
+	public void withdrawal(String id) throws Exception{
+    	dao.withdrawal(id);
+    };
 
 }

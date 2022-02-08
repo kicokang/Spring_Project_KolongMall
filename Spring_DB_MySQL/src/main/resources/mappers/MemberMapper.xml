@@ -36,4 +36,7 @@ SELECT pw from members where m_num=#{m_num}
         SELECT m_num,id,pw,name,address from members where m_num=#{newM_num}
 </select>
 
+<delete id="withdrawal">
+        delete from members where id=#{id}
+</delete>
 </mapper>

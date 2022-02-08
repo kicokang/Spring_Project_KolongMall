@@ -119,12 +119,15 @@ public class SigninController {
 		return map;
 	}
 	//È¸¿ø Å»Åð
-	@RequestMapping(value = "/")
-	public String withdrawal(@RequestParam("session_id") String id,
+	@RequestMapping(value = "/withdrawal/**", method=RequestMethod.POST)
+	public String withdrawal(
+			@RequestParam("withdrawal") String id,
 			Locale locale, Model model, HttpServletRequest request) throws Exception {
 
 		logger.info("withdrawal");
 		System.out.println("signout id:" + id);
+		
+		service.withdrawal(id);
 		
 		return "index";
 	}

@@ -22,4 +22,6 @@ public interface MemberDAO {
 
 	public List<MemberVO> loadMemberInfo(String getM_num) throws Exception;
 
+	public void withdrawal(String id) throws Exception;
+
 }

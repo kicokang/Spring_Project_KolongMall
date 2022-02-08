@@ -19,6 +19,8 @@ public interface MemberService {
 	public String getM_number(String id) throws Exception;
 
 	public List<MemberVO> loadMemberInfo(String getM_num) throws Exception;
+
+	public void withdrawal(String id) throws Exception;
 }
 
 

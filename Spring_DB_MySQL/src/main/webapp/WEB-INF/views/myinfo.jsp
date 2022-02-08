@@ -69,7 +69,11 @@
 			var prom=prompt('아이디를 다시 입력해 주세요.')
 			if(prom===$('#session_id').val()){
 				alert("탈퇴되었습니다!")
+				<%-- a태그 클릭
 				$('#withdrawal').get(0).click();
+				    from태그 id                   주소--%>
+				 $('input[name=withdrawal]').attr('value',prom);
+				 $("#withdrawal").attr("action","withdrawal").submit();
 				}
 			else{
 				alert("아이디가 다릅니다. \n취소되었습니다.")
@@ -89,6 +93,7 @@
 	<c:url value='/' var="index" />
 	<c:set var="checkconfrim" value="${confrimUser}" />
 	<c:url value="myinfo" var="myinfo"/>
+	<c:url value="withdrawal" var="withdrawal"/>
 	<%-- 출력
 <c:out value="${session_id}"/> 
 --%>
@@ -161,18 +166,18 @@
 							<tr>
 								<th><div class="infocom">아이디</div></th>
 								<td><div class="infocon">${info.id}</div></td>
-								<td>
-									<div class="infocon">
-										<form>
-											<input type="text" value="${info.id}">
-											<button type="submit" id="">수정</button>
-										</form>
-									</div>
-								</td>
 							</tr>
 							<tr>
 								<th><div class="infocom">비밀번호</div></th>
 								<td><div class="infocon">${info.pw}</div></td>
+								<td>
+									<div class="infocon">
+										<form>
+											<input type="text" value="${info.pw}">
+											<button type="submit" id="">수정</button>
+										</form>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th><div class="infocom">이름</div></th>
@@ -188,7 +193,13 @@
 
 				<div id="signout">
 					<button onclick="signout();">회원탈퇴</button>
-					<a href="${index}" type="hidden" id="withdrawal"></a>
+					<form METHOD="post" id="withdrawal">
+						<input type="hidden" name="withdrawal" value="">
+					</form>
+					
+					<%-- 
+					<a href="${withdrawal}" type="hidden" id="withdrawal"></a>
+					--%>
 				</div>
 			</c:if>
 
