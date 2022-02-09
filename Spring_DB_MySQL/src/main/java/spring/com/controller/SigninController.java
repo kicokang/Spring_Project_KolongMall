@@ -76,7 +76,7 @@ public class SigninController {
 	@RequestMapping(value = "/checkuser/**")
 	public String checkUser(@RequestParam("pw") String pw,@RequestParam("session_id") String id, Locale locale, Model model, HttpServletRequest request)
 			throws Exception {
-
+//와,...ajax 에 form 태그안 input태그 name이 이렇게 중요했다...name pw가 이름이 안맞아서 400error가 떴었다.
 		logger.info("checkUser");
 		System.out.println("id:" + id);
 		System.out.println("pw:" + pw);
@@ -88,7 +88,7 @@ public class SigninController {
 		
 		//개인정보 불러오기 코드
 		String getM_num=service.getM_number(id);
-		System.out.println("loadUserInfoDo에서 getM_num="+getM_num);
+		System.out.println("checkuser에서 getM_num="+getM_num);
 		List<MemberVO>memberInfo= service.loadMemberInfo(getM_num);
 
 		model.addAttribute("memberInfo", memberInfo);
@@ -114,21 +114,44 @@ public class SigninController {
 		Map<Object, Object> map = new HashMap<>();
 		List<MemberVO> cnt = service.loadMemberInfo(getM_num);
 
+		System.out.print("cnt="+ cnt);
+
 		map.put("cnt",cnt);
 
 		return map;
 	}
-	//회원 탈퇴
-	@RequestMapping(value = "/withdrawal/**", method=RequestMethod.POST)
-	public String withdrawal(
-			@RequestParam("withdrawal") String id,
-			Locale locale, Model model, HttpServletRequest request) throws Exception {
+	
+	//비밀번호 변경
+	@RequestMapping(value = "/update.do", method = { RequestMethod.POST })
+	public @ResponseBody Map<Object, Object> update(String id,String pw, Model model) throws Exception {
 
-		logger.info("withdrawal");
-		System.out.println("signout id:" + id);
+		logger.info("update");
+		System.out.println("pwchange id ="+id);
+		System.out.println("pwchange pw ="+pw);
+
+		//getM_num 가져오기
+		String getM_num=service.getM_number(id);
+		//개인정보 불러오기 코드
+		Map<Object, Object> map1 = new HashMap<>();
+		List<MemberVO> cnt1 = service.loadMemberInfo(getM_num);
+	
+		System.out.print("cnt="+ cnt1);
 		
-		service.withdrawal(id);
+		map1.put("cnt",cnt1);
+		return map1;
 		
-		return "index";
 	}
+	//회원 탈퇴
+		@RequestMapping(value = "/withdrawal/**", method=RequestMethod.POST)
+		public String withdrawal(
+				@RequestParam("withdrawal") String id,
+				Locale locale, Model model, HttpServletRequest request) throws Exception {
+
+			logger.info("withdrawal");
+			System.out.println("signout id:" + id);
+			
+			service.withdrawal(id);
+			
+			return "index";
+		}
 }

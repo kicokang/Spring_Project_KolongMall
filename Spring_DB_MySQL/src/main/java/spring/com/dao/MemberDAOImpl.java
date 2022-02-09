@@ -82,6 +82,13 @@ public class MemberDAOImpl implements MemberDAO {
 	public void withdrawal(String id) throws Exception{
     	sqlSession.delete(Namespace+".withdrawal",id);
     };
+    
+    @Override
+    public int changePW(String pw,int m_num) throws Exception{
+    	int a= 0;
+    	sqlSession.update(Namespace+".changePW",pw);
+    	return a;
+    };
 
 }
 

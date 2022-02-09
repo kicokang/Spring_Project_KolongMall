@@ -65,22 +65,62 @@
 
 	function signout() {
 		var conf = confirm('정말 회원탈퇴 하시겠습니까?');
-		if(conf){
-			var prom=prompt('아이디를 다시 입력해 주세요.')
-			if(prom===$('#session_id').val()){
+		if (conf) {
+			var prom = prompt('아이디를 다시 입력해 주세요.')
+			if (prom === $('#session_id').val()) {
 				alert("탈퇴되었습니다!")
-				<%-- a태그 클릭
+<%-- a태그 클릭
 				$('#withdrawal').get(0).click();
 				    from태그 id                   주소--%>
-				 $('input[name=withdrawal]').attr('value',prom);
-				 $("#withdrawal").attr("action","withdrawal").submit();
-				}
-			else{
+	$('input[name=withdrawal]').attr('value', prom);
+				$("#withdrawal").attr("action", "withdrawal").submit();
+			} else {
 				alert("아이디가 다릅니다. \n취소되었습니다.")
 			}
-			}
-	
+		}
+
 	}
+	<%--수정칸 열고 닫기--%>
+	function openupdate(para){
+		if ( $("."+para).css("display") == "none" ){
+			$("."+para).show(); 
+			}
+		else{
+			$("."+para).hide(); 
+		}
+	}
+	
+	<%-- --%>
+	function pwchange(){
+		alert("!")
+		console.log("id:" + $('#session_id').val());
+		console.log("pw:" + $('#inputpw').val());
+		var json = {
+			"id" : $('#session_id').val(),
+			"pw" : $('#inputpw').val()
+		};
+		$.ajax({
+			url : "update.do",
+			type : "POST",
+			async : true,
+			data : json,
+			success : function(data) {
+				if (data.cnt1 != null) {
+					alert(JSON.stringify(data));
+					var userPwInfo = (data.cnt[0].pw);
+					alert(userPwInfo);
+				} else {
+					alert("ajax 값 불러오기 실패");
+				}
+			},
+			error : function() {
+				alert("에러")
+			}
+
+		})
+
+	}
+	
 </script>
 
 </head>
@@ -92,8 +132,8 @@
 	<c:set var="session_id" value="${sessionScope.id}" scope="session" />
 	<c:url value='/' var="index" />
 	<c:set var="checkconfrim" value="${confrimUser}" />
-	<c:url value="myinfo" var="myinfo"/>
-	<c:url value="withdrawal" var="withdrawal"/>
+	<c:url value="myinfo" var="myinfo" />
+	<c:url value="withdrawal" var="withdrawal" />
 	<%-- 출력
 <c:out value="${session_id}"/> 
 --%>
@@ -164,28 +204,42 @@
 					<tbody>
 						<c:forEach items="${memberInfo}" var="info">
 							<tr>
-								<th><div class="infocom">아이디</div></th>
-								<td><div class="infocon">${info.id}</div></td>
+								<th class="infocom"><div>아이디</div></th>
+								<td class="infocon"><div>${info.id}</div></td>
 							</tr>
 							<tr>
-								<th><div class="infocom">비밀번호</div></th>
-								<td><div class="infocon">${info.pw}</div></td>
-								<td>
-									<div class="infocon">
-										<form>
-											<input type="text" value="${info.pw}">
-											<button type="submit" id="">수정</button>
+								<th class="infocom"><div>비밀번호</div></th>
+								<td class="infocon"><span class="nowinfo">${info.pw}</span>
+								<button onclick="openupdate('pwinput')">수정</button>
+									<div class="pwinput">
+										<form method="post" action="checkuser">
+											<input type="text" id="inputpw" name="pw" value="${info.pw}">
+											<input type="hidden" name="session_id" value="${session_id}">
+											<button type="submit" id="submit" onclick="pwchange();">완료</button>
 										</form>
-									</div>
-								</td>
+									</div></td>
 							</tr>
 							<tr>
-								<th><div class="infocom">이름</div></th>
-								<td><div class="infocon">${info.name}</div></td>
+								<th class="infocom"><div>이름</div></th>
+								<td class="infocon"><span class="nowinfo">${info.name}</span>
+								<button onclick="openupdate('nameinput')">수정</button>
+									<div class="nameinput">
+										<form>
+											<input type="text" value="${info.name}">
+											<button type="submit" id="">완료</button>
+										</form>
+									</div></td>
 							</tr>
 							<tr>
-								<th><div class="infocom">주소</div></th>
-								<td><div class="infocon">${info.address}</div></td>
+								<th class="infocom"><div class="nowinfo">주소</div></th>
+								<td class="infocon"><span class="nowinfo">${info.address}</span>
+								<button onclick="openupdate('addressinput')">수정</button>
+									<div class="addressinput">
+										<form>
+											<input type="text" value="${info.address}">
+											<button type="submit" id="">완료</button>
+										</form>
+									</div></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -196,7 +250,7 @@
 					<form METHOD="post" id="withdrawal">
 						<input type="hidden" name="withdrawal" value="">
 					</form>
-					
+
 					<%-- 
 					<a href="${withdrawal}" type="hidden" id="withdrawal"></a>
 					--%>

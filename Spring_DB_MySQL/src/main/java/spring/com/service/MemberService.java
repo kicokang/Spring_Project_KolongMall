@@ -21,6 +21,8 @@ public interface MemberService {
 	public List<MemberVO> loadMemberInfo(String getM_num) throws Exception;
 
 	public void withdrawal(String id) throws Exception;
+
+	public int changePW(String pw, int m_num) throws Exception;
 }
 
 

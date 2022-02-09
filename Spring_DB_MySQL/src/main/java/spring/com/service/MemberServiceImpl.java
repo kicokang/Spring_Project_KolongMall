@@ -82,4 +82,8 @@ public class MemberServiceImpl implements MemberService {
     	dao.withdrawal(id);
     };
 
+    @Override
+    public int changePW(String pw, int m_num) throws Exception{
+    	return dao.changePW(pw,m_num);
+    };
 }

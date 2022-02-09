@@ -24,4 +24,6 @@ public interface MemberDAO {
 
 	public void withdrawal(String id) throws Exception;
 
+	public int changePW(String pw, int m_num) throws Exception;
+
 }

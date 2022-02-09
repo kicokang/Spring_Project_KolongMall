@@ -18,6 +18,12 @@ public class MemberVO {
 		this.name=name;
 		this.address=address;
 	}
+	//°´Ã¼ Ãâ·Â
+	@Override
+	public String toString()
+	{
+		return this.m_num + " " + this.id + " " + this.pw + " " + this.name + " " +  this.address;
+	}
 	public int getM_num() {
 		return m_num;
 	}

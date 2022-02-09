@@ -6,11 +6,11 @@
 <mapper namespace="spring.com.mapper.MemberMapper">
 
 <select id="selectAllMember" resultType="MemberVO">
-        SELECT m_num,id,pw,address from members
+SELECT m_num,id,pw,address from members
 </select>
    	
 <select id="loginCheck" resultType="String">
-        SELECT pw from members where id=#{id};
+SELECT pw from members where id=#{id};
 </select>
 
 <select id="signin" resultType="spring.com.dto.MemberVO">
@@ -33,10 +33,15 @@ SELECT pw from members where m_num=#{m_num}
 </select>
 
 <select id="loadMemberInfo" resultType="MemberVO">
-        SELECT m_num,id,pw,name,address from members where m_num=#{newM_num}
+SELECT m_num,id,pw,name,address from members where m_num=#{newM_num}
 </select>
 
 <delete id="withdrawal">
-        delete from members where id=#{id}
+delete from members where id=#{id}
 </delete>
+
+<update id="changePW">
+update members set pw=#{pw} where m_num=#{m_num}
+</update>
+
 </mapper>
